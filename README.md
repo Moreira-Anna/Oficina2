@@ -14,7 +14,7 @@ Sistema de gerenciamento para eventos lúdicos, com controle de participantes e 
 ## 📝 Requisitos Funcionais
  ### Aluno
 - RF01. Fazer login no sistema.
-- RF06. Reservar um horário para jogar, na Sala do Lúdico ou em Eventos.
+- RF06. Reservar um horário para jogar, na Sala do Lúdico.
 - RF07. Não permitir reservas em horários conflitantes e verificar disponibilidade de vagas.
 - RF08. Receber e-mails de confirmação e lembrete de reservas.
 - RF09. Editar ou cancelar suas reservas.
