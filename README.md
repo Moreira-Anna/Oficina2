@@ -1,17 +1,17 @@
-## 🎮 Sistema de Controle de Jogos Lúdicos
+##  Sistema de Controle de Jogos Lúdicos
 
 Sistema de gerenciamento para eventos lúdicos, com controle de participantes e estatísticas gráficas dos jogos mais jogados.
 
-## 📋 Funcionalidades
+##  Funcionalidades
 
-- ✅ Registro de quem jogou cada jogo
-- 📊 Análise gráfica por evento e por sala
-- 👥 Controle de número de jogadores por atividade
-- 🕹️ Histórico dos jogos mais populares
+- Registro de quem jogou cada jogo
+- Análise gráfica por evento e por sala
+- Controle de número de jogadores por atividade
+-  Histórico dos jogos mais populares
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-## 📝 Requisitos Funcionais
+##  Requisitos Funcionais
 ***2.1. Requisitos Funcionais***
 
 | Identificador | Descrição | Prioridade | Depende de |
