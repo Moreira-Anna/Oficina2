@@ -48,3 +48,106 @@ Sistema de gerenciamento para eventos lúdicos, com controle de participantes e 
 | RNF18 | O sistema deve ser modular, facilitando alterações e atualizações futuras.  | S | RF01, RF02, RF03, RF04, RF05, RF06, RF07, RF08, RF09, RF10 |
 | RNF19 | O código deve seguir boas práticas de desenvolvimento, com documentação básica e padronização. | M | RF01, RF02, RF03, RF04, RF05, RF06, RF07, RF08, RF09, RF10 
 | RNF20 | O Sistema precisa dar autonomia para os administradores cancelar as reservas. | W | RNF13
+
+# Test
+
+### 🧪 1. Cadastro de Jogos
+
+- **Objetivo:** Garantir que um jogo pode ser cadastrado corretamente.
+- **Testes:**
+    - Deve salvar um jogo com nome e descrição válidos.
+    - Não deve permitir cadastro de jogo sem nome.
+
+```java
+@Test
+void shouldCreateGameSuccessfully() {
+    Game game = new Game("Dama", "Jogo de estratégia com peças.");
+    assertEquals("Dama", game.getName());
+    assertEquals("Jogo de estratégia com peças.", game.getDescription());
+}
+
+@Test
+void shouldThrowExceptionWhenCreatingGameWithoutName() {
+    assertThrows(IllegalArgumentException.class, () -> new Game("", "Descrição"));
+}
+
+```
+
+### 🧪 2. Análise Gráfica
+
+- **Objetivo:** Testar se o sistema gera dados corretos para gráficos (quantidade de partidas por jogo).
+- **Testes:**
+    - Deve contar corretamente o número de partidas por jogo.
+    - Deve listar o jogo mais jogado corretamente.
+
+```java
+@Test
+void shouldCountMatchesPerGameCorrectly() {
+    Game dama = new Game("Dama", "Descrição");
+    Player ana = new Player("Ana");
+
+    StatisticsService service = new StatisticsService();
+    service.registerMatch(new Match(ana, dama));
+    service.registerMatch(new Match(ana, dama));
+
+    assertEquals(2, service.getMatchesCountForGame("Dama"));
+}
+
+@Test
+void shouldIdentifyMostPlayedGame() {
+    Game dama = new Game("Dama", "Descrição");
+    Game xadrez = new Game("Xadrez", "Descrição");
+    Player ana = new Player("Ana");
+
+    StatisticsService service = new StatisticsService();
+    service.registerMatch(new Match(ana, dama));
+    service.registerMatch(new Match(ana, dama));
+    service.registerMatch(new Match(ana, xadrez));
+
+    assertEquals("Dama", service.getMostPlayedGame().getName());
+}
+
+```
+ # Arquitetura do Projeto
+
+ ### Diagrama
+
+ ![1](https://github.com/Moreira-Anna/Oficina2/blob/main/img/of1.png?raw=true)
+ 
+ ![2](https://github.com/Moreira-Anna/Oficina2/blob/main/img/of2.png?raw=true)
+ 
+ ![3](https://github.com/Moreira-Anna/Oficina2/blob/main/img/of3.png?raw=true)
+
+## Explicação dos diagramas
+
+ ## Imagem 1: Fluxograma: Requisitos de Usuário
+
+**Foco na experiência do usuário: mostra como ele navega e interage com o sistema.**
+
+**Representa decisões lógicas com condições (ex: "Login?", "Novato?", "Cancelar?").**
+
+**Ações principais:
+Entrar no sistema.
+Fazer login ou ser recusado.
+Ver jogos (se for novato).
+Listar, buscar e reservar jogos.
+Cancelar reserva.
+Avaliar e visualizar histórico.**
+
+## Imagem 2: Diagrama de Componentes: Sistema em Java
+
+**Arquitetura em camadas:**
+
+**Controller (Web): entrada de requisições.**
+
+**Service: lógica de negócio e validações.**
+
+**Repository: acesso direto ao banco (MySQL).**
+
+**Model: entidades representando tabelas do banco.**
+
+**Uso de MySQL como base de dados.**
+
+**Entidades bem definidas: Usuario, Jogo, Reserva, Evento, Aluno, Administrador.**
+
+ 
