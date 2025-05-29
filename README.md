@@ -51,7 +51,7 @@ Sistema de gerenciamento para eventos lúdicos, com controle de participantes e 
 
 # Test
 
-### 🧪 1. Cadastro de Jogos
+###  1. Cadastro de Jogos
 
 - **Objetivo:** Garantir que um jogo pode ser cadastrado corretamente.
 - **Testes:**
@@ -73,7 +73,7 @@ void shouldThrowExceptionWhenCreatingGameWithoutName() {
 
 ```
 
-### 🧪 2. Análise Gráfica
+###  2. Análise Gráfica
 
 - **Objetivo:** Testar se o sistema gera dados corretos para gráficos (quantidade de partidas por jogo).
 - **Testes:**
