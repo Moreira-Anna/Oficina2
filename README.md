@@ -150,4 +150,24 @@ Avaliar e visualizar histórico.**
 
 **Entidades bem definidas: Usuario, Jogo, Reserva, Evento, Aluno, Administrador.**
 
+
+## Ambiente de desenvolvimento
+
+
+### Dependências (Node, Java, Docker, etc.)
+
+**Java, SpringBoot, Postgresql**
+
+### Comandos de instalação e inicialização
+
+- mvn clean install
+- mvn spring-boot:run
+- mvn exec:java -Dexec.mainClass="com.oficina.Main"
+
+### Ferramentas necessárias (VSCode, extensões, etc.)
+
+1. **VScode**
+2. NetBeans
+3. JDK
+
  
