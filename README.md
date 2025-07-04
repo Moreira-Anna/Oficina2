@@ -53,8 +53,8 @@ Sistema de gerenciamento para eventos lúdicos, com controle de participantes e 
 
 ###  1. Cadastro de Jogos
 
-- **Objetivo:** Garantir que um jogo pode ser cadastrado corretamente.
-- **Testes:**
+- **Objetivo :** Garantir que um jogo pode ser cadastrado corretamente.
+- **Testes :**
     - Deve salvar um jogo com nome e descrição válidos.
     - Não deve permitir cadastro de jogo sem nome.
 
