@@ -1,0 +1,166 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  nome      String
+  senha     String
+  cargo     String   @default("aluno") // "supervisor" ou "aluno"
+  idade     Int?
+  telefone  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relacionamentos
+  participacoes ParticipanteRegistro[]
+  inscricoesEventos InscricaoEvento[]
+  certificados Certificado[]
+  
+  @@map("users")
+}
+
+model Jogo {
+  id           String @id @default(cuid())
+  nome         String
+  categoria    String
+  descricao    String
+  minJogadores Int
+  maxJogadores Int
+  duracaoMedia Int
+  material     String // JSON string array
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Relacionamentos
+  registros RegistroJogo[]
+  eventosJogos EventoJogo[]
+  
+  @@map("jogos")
+}
+
+model Evento {
+  id          String   @id @default(cuid())
+  nome        String
+  data        DateTime
+  local       String
+  descricao   String
+  organizador String
+  status      String   @default("planejado") // "planejado", "em-andamento", "finalizado"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relacionamentos
+  salas    Sala[]
+  registros RegistroJogo[]
+  inscricoes InscricaoEvento[]
+  eventosJogos EventoJogo[]
+  certificados Certificado[]
+  
+  @@map("eventos")
+}
+
+model Sala {
+  id         String @id @default(cuid())
+  nome       String
+  capacidade Int
+  eventoId   String
+  
+  // Relacionamentos
+  evento    Evento         @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+  registros RegistroJogo[]
+  
+  @@map("salas")
+}
+
+model RegistroJogo {
+  id          String    @id @default(cuid())
+  jogoId      String
+  eventoId    String
+  salaId      String
+  dataInicio  DateTime
+  dataFim     DateTime?
+  observacoes String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relacionamentos
+  jogo         Jogo            @relation(fields: [jogoId], references: [id], onDelete: Cascade)
+  evento       Evento          @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+  sala         Sala            @relation(fields: [salaId], references: [id], onDelete: Cascade)
+  participantes ParticipanteRegistro[]
+  
+  @@map("registros_jogos")
+}
+
+model ParticipanteRegistro {
+  id             String @id @default(cuid())
+  registroJogoId String
+  participanteId String
+  
+  // Relacionamentos
+  registroJogo RegistroJogo @relation(fields: [registroJogoId], references: [id], onDelete: Cascade)
+  participante User         @relation(fields: [participanteId], references: [id], onDelete: Cascade)
+  
+  @@unique([registroJogoId, participanteId])
+  @@map("participantes_registros")
+}
+
+model InscricaoEvento {
+  id           String   @id @default(cuid())
+  eventoId     String
+  participanteId String
+  dataInscricao DateTime @default(now())
+  status       String   @default("confirmada") // "confirmada", "cancelada", "em-espera"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Relacionamentos
+  evento       Evento @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+  participante User   @relation(fields: [participanteId], references: [id], onDelete: Cascade)
+  
+  @@unique([eventoId, participanteId])
+  @@map("inscricoes_eventos")
+}
+
+model EventoJogo {
+  id        String   @id @default(cuid())
+  eventoId  String
+  jogoId    String
+  prioridade Int     @default(0) // Para ordenar os jogos no evento
+  createdAt DateTime @default(now())
+  
+  // Relacionamentos
+  evento    Evento @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+  jogo      Jogo   @relation(fields: [jogoId], references: [id], onDelete: Cascade)
+  
+  @@unique([eventoId, jogoId])
+  @@map("eventos_jogos")
+}
+
+model Certificado {
+  id           String   @id @default(cuid())
+  eventoId     String
+  participanteId String
+  dataEmissao  DateTime @default(now())
+  codigoCertificado String @unique
+  horasParticipacao Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Relacionamentos
+  evento       Evento @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+  participante User   @relation(fields: [participanteId], references: [id], onDelete: Cascade)
+  
+  @@unique([eventoId, participanteId])
+  @@map("certificados")
+}

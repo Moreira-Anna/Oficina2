@@ -1,0 +1,75 @@
+# Next.js build output
+.next
+out
+
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testingg
+coverage
+
+# Production
+build
+dist
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Local environment files
+.env*.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Prisma
+/generated/prisma
+
+# Misc
+.DS_Store
+*.pem
+.vercel
+.turbo
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Cache
+.eslintcache
+.cache
+
+# Database
+*.sqlite
+*.db
+
+# Cache
+.eslintcache
+.cache
