@@ -66,3 +66,16 @@ export interface EstatisticaEvento {
 }
 
 export type FiltroTempo = "hoje" | "semana" | "mes" | "ano" | "todos";
+
+export interface Certificado {
+  id: string;
+  eventoId: string;
+  participanteId: string;
+  dataEmissao: Date;
+  codigoCertificado: string;
+  horasParticipacao: number;
+  createdAt: Date;
+  updatedAt: Date;
+  evento?: Evento;
+  participante?: Participante;
+}
